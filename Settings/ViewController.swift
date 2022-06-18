@@ -1,6 +1,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    typealias CellType = (name: String, accesoryType: UITableViewCell.AccessoryType)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -8,6 +10,8 @@ class ViewController: UIViewController {
 
         view.addSubview(tableView)
     }
+
+    let dataCell: [CellType] = [("Test1", .none), ("Test2", .disclosureIndicator), ("Test3", .none)]
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .grouped)
@@ -28,12 +32,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 //    DataSource
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 3
+//    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+//        switch section {
+//            case 0:
+//                return 6
+//            case 1:
+//                return 4
+//            case 2:
+//                return 10
+//            default:
+//                return 0
+//        }
+        return dataCell.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        var content = cell.defaultContentConfiguration()
+        let dataContent = dataCell[indexPath.row]
+        content.text = dataContent.name
+        cell.accessoryType = dataContent.accesoryType
+        cell.contentConfiguration = content
 
         return cell
     }
