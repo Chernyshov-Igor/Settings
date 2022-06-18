@@ -28,7 +28,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 //    Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
+        let dataContent = dataCell[indexPath.row]
+        print("Нажата ячейка \(dataContent.name)")
     }
 
 //    DataSource
