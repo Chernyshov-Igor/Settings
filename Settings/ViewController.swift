@@ -22,6 +22,11 @@ class ViewController: UIViewController {
 
         return tableView
     }()
+
+    @objc func switchChanged(_ sender : UISwitch!){
+          print("Нажат переключатель ячейки \(sender.accessibilityIdentifier)")
+          print("Переключатель \(sender.isOn ? "ВКЛ." : "ВЫКЛ.")")
+    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -60,6 +65,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         content.text = dataContent.name
         cell.accessoryType = dataContent.accesoryType
         cell.contentConfiguration = content
+
+        let switchView = UISwitch(frame: .zero)
+        switchView.setOn(false, animated: true)
+        switchView.accessibilityIdentifier = dataContent.name
+        switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+        cell.accessoryView = switchView
 
         return cell
     }
