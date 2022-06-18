@@ -10,29 +10,30 @@ class ViewController: UIViewController {
         view.addSubview(tableView)
     }
 
-    let bigData: [[(name: String,
+    var bigData: [[(name: String,
+                    secondaryText: String?,
                     accesoryType: UITableViewCell.AccessoryType,
                     switchView: Bool)]] = [
-                   [("Авиарежим", .none, true),
-                    ("Wi-Fi", .disclosureIndicator, false),
-                    ("Bluetooth", .disclosureIndicator, false),
-                    ("Сотовая связь", .disclosureIndicator, false),
-                    ("Режим модема", .disclosureIndicator, false),
-                    ("VPN", .disclosureIndicator, true)],
+                   [("Авиарежим", nil, .none, true),
+                    ("Wi-Fi", nil, .disclosureIndicator, false),
+                    ("Bluetooth", "Вкл.", .disclosureIndicator, false),
+                    ("Сотовая связь", nil, .disclosureIndicator, false),
+                    ("Режим модема", nil, .disclosureIndicator, false),
+                    ("VPN", "Не подключено", .disclosureIndicator, true)],
 
-                   [("Уведомления", .disclosureIndicator, false),
-                    ("Звуки, тактильные сигналы", .disclosureIndicator, false),
-                    ("Фокусирование", .disclosureIndicator, false),
-                    ("Экранное время", .disclosureIndicator, false)],
+                   [("Уведомления", nil, .disclosureIndicator, false),
+                    ("Звуки, тактильные сигналы", nil, .disclosureIndicator, false),
+                    ("Фокусирование", nil, .disclosureIndicator, false),
+                    ("Экранное время", nil, .disclosureIndicator, false)],
 
-                   [("Основные", .disclosureIndicator, false),
-                    ("Пункт управления", .disclosureIndicator, false),
-                    ("Экран и яркость", .disclosureIndicator, false),
-                    ("Экран \"Домой\"", .disclosureIndicator, false),
-                    ("Универсальный доступ", .disclosureIndicator, false),
-                    ("Обои", .disclosureIndicator, false),
-                    ("Siri и поиск", .disclosureIndicator, false),
-                    ("Face ID и код-пароль", .disclosureIndicator, false)]]
+                   [("Основные", nil, .disclosureIndicator, false),
+                    ("Пункт управления", nil, .disclosureIndicator, false),
+                    ("Экран и яркость", nil, .disclosureIndicator, false),
+                    ("Экран \"Домой\"", nil, .disclosureIndicator, false),
+                    ("Универсальный доступ", nil, .disclosureIndicator, false),
+                    ("Обои", nil, .disclosureIndicator, false),
+                    ("Siri и поиск", nil, .disclosureIndicator, false),
+                    ("Face ID и код-пароль", nil, .disclosureIndicator, false)]]
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .grouped)
@@ -74,6 +75,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         var content = cell.defaultContentConfiguration()
         let dataContent = bigData[indexPath.section][indexPath.row]
         content.text = dataContent.name
+
+        // Secondary text
+        content.prefersSideBySideTextAndSecondaryText = true
+        content.secondaryTextProperties.font = .systemFont(ofSize: 18)
+        content.secondaryTextProperties.color = .gray
+        content.secondaryText = bigData[indexPath.section][indexPath.row].secondaryText
+
         cell.accessoryType = dataContent.accesoryType
         cell.contentConfiguration = content
 
