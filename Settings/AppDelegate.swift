@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Settings
-//
-//  Created by Игорь Чернышов on 15.06.2022.
-//
-
 import UIKit
 
 @main
