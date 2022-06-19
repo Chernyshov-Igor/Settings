@@ -45,9 +45,13 @@ class ViewController: UIViewController {
         return tableView
     }()
 
-    @objc func switchChanged(_ sender : UISwitch!){
-        print("Нажат переключатель ячейки \(sender.accessibilityIdentifier)")
-        print("Переключатель \(sender.isOn ? "ВКЛ." : "ВЫКЛ.")")
+    @objc func switchChanged(_ sender : UISwitch?){
+        if let sender = sender {
+            print("""
+                  Нажат переключатель ячейки \(String(describing: sender.accessibilityIdentifier)) \
+                  в положение \(sender.isOn ? "ВКЛ." : "ВЫКЛ.")
+                  """)
+        }
     }
 }
 
