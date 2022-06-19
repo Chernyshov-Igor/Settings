@@ -9,31 +9,32 @@ class ViewController: UIViewController {
 
         view.addSubview(tableView)
     }
-
-    var bigData: [[(name: String,
+// По хорошему было использовать enum для всех string, но делал чтобы быстрее
+    let bigData: [[(name: String,
                     secondaryText: String?,
+                    systemImage: String,
                     accesoryType: UITableViewCell.AccessoryType,
                     switchView: Bool)]] = [
-                   [("Авиарежим", nil, .none, true),
-                    ("Wi-Fi", nil, .disclosureIndicator, false),
-                    ("Bluetooth", "Вкл.", .disclosureIndicator, false),
-                    ("Сотовая связь", nil, .disclosureIndicator, false),
-                    ("Режим модема", nil, .disclosureIndicator, false),
-                    ("VPN", "Не подключено", .disclosureIndicator, true)],
+                   [("Авиарежим", nil, "airplane", .none, true),
+                    ("Wi-Fi", nil, "wifi", .disclosureIndicator, false),
+                    ("Bluetooth", "Вкл.", "b.circle.fill", .disclosureIndicator, false),
+                    ("Сотовая связь", nil, "antenna.radiowaves.left.and.right", .disclosureIndicator, false),
+                    ("Режим модема", nil, "personalhotspot", .disclosureIndicator, false),
+                    ("VPN", "Не подключено", "bonjour", .disclosureIndicator, true)],
 
-                   [("Уведомления", nil, .disclosureIndicator, false),
-                    ("Звуки, тактильные сигналы", nil, .disclosureIndicator, false),
-                    ("Фокусирование", nil, .disclosureIndicator, false),
-                    ("Экранное время", nil, .disclosureIndicator, false)],
+                   [("Уведомления", nil, "bell", .disclosureIndicator, false),
+                    ("Звуки, тактильные сигналы", nil, "speaker", .disclosureIndicator, false),
+                    ("Фокусирование", nil, "moon", .disclosureIndicator, false),
+                    ("Экранное время", nil, "stopwatch", .disclosureIndicator, false)],
 
-                   [("Основные", nil, .disclosureIndicator, false),
-                    ("Пункт управления", nil, .disclosureIndicator, false),
-                    ("Экран и яркость", nil, .disclosureIndicator, false),
-                    ("Экран \"Домой\"", nil, .disclosureIndicator, false),
-                    ("Универсальный доступ", nil, .disclosureIndicator, false),
-                    ("Обои", nil, .disclosureIndicator, false),
-                    ("Siri и поиск", nil, .disclosureIndicator, false),
-                    ("Face ID и код-пароль", nil, .disclosureIndicator, false)]]
+                   [("Основные", nil, "gear", .disclosureIndicator, false),
+                    ("Пункт управления", nil, "switch.2", .disclosureIndicator, false),
+                    ("Экран и яркость", nil, "textformat.size", .disclosureIndicator, false),
+                    ("Экран \"Домой\"", nil, "tv", .disclosureIndicator, false),
+                    ("Универсальный доступ", nil, "folder.badge.person.crop", .disclosureIndicator, false),
+                    ("Обои", nil, "photo", .disclosureIndicator, false),
+                    ("Siri и поиск", nil, "magnifyingglass", .disclosureIndicator, false),
+                    ("Face ID и код-пароль", nil, "faceid", .disclosureIndicator, false)]]
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .grouped)
@@ -85,6 +86,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         content.secondaryTextProperties.font = .systemFont(ofSize: 18)
         content.secondaryTextProperties.color = .gray
         content.secondaryText = bigData[indexPath.section][indexPath.row].secondaryText
+
+        // Image
+        content.image = UIImage(systemName: bigData[indexPath.section][indexPath.row].systemImage)
 
         cell.accessoryType = dataContent.accesoryType
         cell.contentConfiguration = content
